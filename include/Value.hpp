@@ -3,6 +3,8 @@
 #include "v8/include/v8.h"
 #include <string>
 
+#include "Generic.hpp"
+
 // Whether to use persistent or local handles for storing the JS values.
 // Using a persistent handle means the wrapper instance can be stored as long
 // as the Isolate is alive, but comes at the cost of being slower to construct.
@@ -16,6 +18,7 @@ namespace JSWrapper
     template<typename CppType, typename JSType>
     class Value
     {
+    protected:
         v8::Isolate* isolate = v8::Isolate::GetCurrent();
         bool hasJSValue = false;
 #if WRAPPER_USE_PERSISTENT_HANDLES == 1
@@ -45,7 +48,9 @@ namespace JSWrapper
         }
 
     public:
-        Value() = delete;
+        using CppValueType = CppType;
+        using JSValueType = JSType;
+
         Value(v8::Local<v8::Value> _value) : hasJSValue(_value.IsEmpty())
         {
 #if WRAPPER_USE_PERSISTENT_HANDLES == 1
@@ -63,6 +68,14 @@ namespace JSWrapper
 #endif
         }
         Value(const CppType& _value) : hasCppValue(true), cppValue(_value) {}
+        Value(const Generic& _value) : hasJSValue(_value.GetValue().IsEmpty())
+        {
+#if WRAPPER_USE_PERSISTENT_HANDLES == 1
+            if(!_value.GetValue().IsEmpty()) jsValue.Reset(isolate, _value.GetValue());
+#else
+            if(!_value.GetValue().IsEmpty()) jsValue = _value.GetValue();
+#endif
+        }
         ~Value()
         {
 #if WRAPPER_USE_PERSISTENT_HANDLES == 1
@@ -72,6 +85,7 @@ namespace JSWrapper
 
         v8::Local<JSType> JSValue()
         {
+            if(!Valid()) return v8::Local<JSType>();
             if(!hasJSValue && hasCppValue)
             {
                 hasJSValue = true;
@@ -85,6 +99,7 @@ namespace JSWrapper
         }
         CppType CppValue(CppType&& defaultValue = CppType())
         {
+            if(!Valid()) return defaultValue;
             if(!hasCppValue && hasJSValue)
             {
                 hasCppValue = true;
@@ -102,9 +117,18 @@ namespace JSWrapper
             return hasCppValue;
         }
 
+        bool Valid()
+        {
+            return HasJSValue() || HasCppValue();
+        }
+
         operator CppType()
         {
             return CppValue();
+        }
+        operator v8::Local<JSType>()
+        {
+            return JSValue();
         }
     };
 
