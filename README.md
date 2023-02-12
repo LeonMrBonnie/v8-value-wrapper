@@ -2,6 +2,8 @@
 
 A header-only library to simplify working with V8 JavaScript values.
 
+Documentation still WIP.
+
 ## Usage
 
 Simply include `include/Wrapper.hpp` in your project and use the `JSWrapper` namespace classes.
