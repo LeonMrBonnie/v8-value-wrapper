@@ -31,6 +31,6 @@ namespace JSWrapper
     }
 
     using String = Value<std::string, v8::String>;
-    using WString = Value<std::string, v8::String>;
+    using WString = Value<std::wstring, v8::String>;
 
 };  // namespace JSWrapper
