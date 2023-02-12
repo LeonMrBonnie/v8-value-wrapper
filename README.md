@@ -30,3 +30,7 @@ WIP
 
 This library supports the usage of persistent or local handles to store inside the value wrapper, to toggle which one to use
 see [Value.hpp#L6-L12](include/Value.hpp#L6-L12).
+
+## Planned features
+
+- [ ] Implement STL-like methods for Array and Object to allow range-based for loops
