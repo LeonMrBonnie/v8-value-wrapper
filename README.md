@@ -29,7 +29,7 @@ WIP
 ## Configuration
 
 This library supports the usage of persistent or local handles to store inside the value wrapper, to toggle which one to use
-see [Value.hpp#L6-L12](include/Value.hpp#L6-L12).
+see [Value.hpp#L8-L14](include/Value.hpp#L8-L14).
 
 ## Planned features
 
