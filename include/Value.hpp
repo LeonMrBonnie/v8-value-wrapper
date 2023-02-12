@@ -51,6 +51,7 @@ namespace JSWrapper
         using CppValueType = CppType;
         using JSValueType = JSType;
 
+        Value() = delete;
         Value(v8::Local<v8::Value> _value) : hasJSValue(_value.IsEmpty())
         {
 #if WRAPPER_USE_PERSISTENT_HANDLES == 1
