@@ -18,14 +18,6 @@ the Value using either the C++ value or the JS handle.
 For convenience, there are using directives available for the supported types such as `JSWrapper::String` which is a `JSWrapper::Value<std::string, v8::String>`
 value.
 
-### Array
-
-WIP
-
-### Object
-
-WIP
-
 ## Configuration
 
 This library supports the usage of persistent or local handles to store inside the value wrapper, to toggle which one to use
