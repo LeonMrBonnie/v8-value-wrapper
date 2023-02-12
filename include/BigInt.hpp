@@ -32,4 +32,5 @@ namespace JSWrapper
 
     using BigInt = Value<int64_t, v8::BigInt>;
     using UnsignedBigInt = Value<uint64_t, v8::BigInt>;
+
 };  // namespace JSWrapper

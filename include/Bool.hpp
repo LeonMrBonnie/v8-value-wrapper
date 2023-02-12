@@ -16,4 +16,5 @@ namespace JSWrapper
     }
 
     using Bool = Value<bool, v8::Boolean>;
+
 };  // namespace JSWrapper
