@@ -6,3 +6,4 @@
 #include "types/String.hpp"
 #include "types/Array.hpp"
 #include "types/Object.hpp"
+#include "types/Map.hpp"
