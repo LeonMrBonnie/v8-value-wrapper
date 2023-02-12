@@ -111,16 +111,16 @@ namespace JSWrapper
             return cppValue;
         }
 
-        bool HasJSValue()
+        bool HasJSValue() const
         {
             return hasJSValue;
         }
-        bool HasCppValue()
+        bool HasCppValue() const
         {
             return hasCppValue;
         }
 
-        bool Valid()
+        bool Valid() const
         {
             return HasJSValue() || HasCppValue();
         }

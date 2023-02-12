@@ -24,11 +24,11 @@ namespace JSWrapper
         Generic() : type(GenericType::INVALID) {}
         Generic(v8::Local<v8::Value> _value) : value(_value), type(GetGenericType(_value)) {}
 
-        GenericType GetType()
+        GenericType GetType() const
         {
             return type;
         }
-        v8::Local<v8::Value> GetValue()
+        v8::Local<v8::Value> GetValue() const
         {
             return value;
         }
