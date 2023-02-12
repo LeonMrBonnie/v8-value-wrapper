@@ -49,9 +49,9 @@ namespace JSWrapper
         Value(v8::Local<v8::Value> _value) : hasJSValue(_value.IsEmpty())
         {
 #if WRAPPER_USE_PERSISTENT_HANDLES == 1
-            jsValue.Reset(isolate, _value);
+            if(!_value.IsEmpty()) jsValue.Reset(isolate, _value);
 #else
-            jsValue = _value;
+            if(!_value.IsEmpty()) jsValue = _value;
 #endif
         }
         Value(v8::MaybeLocal<v8::Value> _value) : hasJSValue(_value.IsEmpty())
@@ -207,5 +207,8 @@ namespace JSWrapper
     using Bool = Value<bool, v8::Boolean>;
     using String = Value<std::string, v8::String>;
     using WString = Value<std::string, v8::String>;
+
+    template<typename NumberType>
+    using Number = Value<NumberType, v8::Number>;
 
 };  // namespace JSWrapper
