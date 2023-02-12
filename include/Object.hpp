@@ -3,8 +3,10 @@
 #include "v8/include/v8.h"
 #include <unordered_map>
 
+#include "Value.hpp"
 #include "Generic.hpp"
 #include "Array.hpp"
+#include "String.hpp"
 
 namespace JSWrapper
 {
