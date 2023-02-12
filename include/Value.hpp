@@ -52,7 +52,8 @@ namespace JSWrapper
         using JSValueType = JSType;
 
         Value() = delete;
-        Value(v8::Local<v8::Value> _value) : hasJSValue(_value.IsEmpty())
+        template<typename T = v8::Value>
+        Value(v8::Local<T> _value) : hasJSValue(_value.IsEmpty())
         {
 #if WRAPPER_USE_PERSISTENT_HANDLES == 1
             if(!_value.IsEmpty()) jsValue.Reset(isolate, _value);
@@ -60,7 +61,8 @@ namespace JSWrapper
             if(!_value.IsEmpty()) jsValue = _value;
 #endif
         }
-        Value(v8::MaybeLocal<v8::Value> _value) : hasJSValue(_value.IsEmpty())
+        template<typename T = v8::Value>
+        Value(v8::MaybeLocal<T> _value) : hasJSValue(_value.IsEmpty())
         {
 #if WRAPPER_USE_PERSISTENT_HANDLES == 1
             if(!_value.IsEmpty()) jsValue.Reset(isolate, _value.ToLocalChecked());
