@@ -7,3 +7,4 @@
 #include "types/Array.hpp"
 #include "types/Object.hpp"
 #include "types/Map.hpp"
+#include "types/Set.hpp"
