@@ -35,3 +35,4 @@ see [Value.hpp#L8-L14](include/Value.hpp#L8-L14).
 
 - [X] ~~Implement STL-like methods for Array and Object to allow range-based for loops~~ (Abandoned, convert to C++ value directly instead)
 - [X] Implement support for more JavaScript types (Set, Map, etc.)
+- [ ] Implement support for ArrayBuffers and *Array types
