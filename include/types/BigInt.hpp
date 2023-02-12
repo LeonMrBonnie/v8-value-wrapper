@@ -2,7 +2,7 @@
 
 #include "v8/include/v8.h"
 
-#include "Value.hpp"
+#include "../Value.hpp"
 
 namespace JSWrapper
 {

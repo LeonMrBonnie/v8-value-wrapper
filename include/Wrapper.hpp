@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Number.hpp"
-#include "BigInt.hpp"
-#include "Bool.hpp"
-#include "String.hpp"
-#include "Array.hpp"
-#include "Object.hpp"
+#include "types/Number.hpp"
+#include "types/BigInt.hpp"
+#include "types/Bool.hpp"
+#include "types/String.hpp"
+#include "types/Array.hpp"
+#include "types/Object.hpp"
