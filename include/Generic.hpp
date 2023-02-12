@@ -12,7 +12,10 @@ namespace JSWrapper
         BOOL,
         STRING,
         ARRAY,
-        OBJECT
+        OBJECT,
+        MAP,
+        SET,
+        EXTERNAL
     };
 
     class Generic
@@ -40,6 +43,9 @@ namespace JSWrapper
             if(value->IsBoolean()) return GenericType::BOOL;
             if(value->IsString()) return GenericType::STRING;
             if(value->IsArray()) return GenericType::ARRAY;
+            if(value->IsMap()) return GenericType::MAP;
+            if(value->IsSet()) return GenericType::SET;
+            if(value->IsExternal()) return GenericType::EXTERNAL;
             if(value->IsObject()) return GenericType::OBJECT;
             return GenericType::INVALID;
         }
