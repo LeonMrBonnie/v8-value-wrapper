@@ -9,3 +9,4 @@
 #include "types/Map.hpp"
 #include "types/Set.hpp"
 #include "types/External.hpp"
+#include "types/Symbol.hpp"

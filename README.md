@@ -29,6 +29,6 @@ see [Value.hpp#L8-L14](include/Value.hpp#L8-L14).
 - Implement support for missing types:
     - [ ] ArrayBuffer, SharedArrayBuffer, DataView
     - [ ] TypedArrays
-    - [ ] Symbol
+    - [X] Symbol
     - [ ] Date
     - [ ] Function (? This one might be too much work and out of scope for this library)

@@ -15,7 +15,8 @@ namespace JSWrapper
         OBJECT,
         MAP,
         SET,
-        EXTERNAL
+        EXTERNAL,
+        SYMBOL
     };
 
     class Generic
@@ -46,6 +47,7 @@ namespace JSWrapper
             if(value->IsMap()) return GenericType::MAP;
             if(value->IsSet()) return GenericType::SET;
             if(value->IsExternal()) return GenericType::EXTERNAL;
+            if(value->IsSymbol()) return GenericType::SYMBOL;
             if(value->IsObject()) return GenericType::OBJECT;
             return GenericType::INVALID;
         }
