@@ -7,7 +7,9 @@
 
 namespace JSWrapper
 {
-    v8::Local<v8::Array> Value<std::vector<Generic>, v8::Array>::ToJSValue()
+    using Array = Value<std::vector<Generic>, v8::Array>;
+
+    v8::Local<Array::JSValueType> Array::ToJSValue()
     {
         v8::Local<v8::Context> ctx = isolate->GetEnteredOrMicrotaskContext();
         v8::Local<v8::Array> arr = v8::Array::New(isolate, (int)cppValue.size());
@@ -17,13 +19,13 @@ namespace JSWrapper
         }
         return arr;
     }
-    std::vector<Generic> Value<std::vector<Generic>, v8::Array>::ToCppValue(std::vector<Generic>&& defaultVal)
+    Array::CppValueType Array::ToCppValue(Array::CppValueType&& defaultVal)
     {
         if(!GetHandle()->IsArray()) return defaultVal;
 
         v8::Local<v8::Context> ctx = isolate->GetEnteredOrMicrotaskContext();
         uint32_t size = GetHandle().As<v8::Array>()->Length();
-        std::vector<Generic> vector;
+        Array::CppValueType vector;
         vector.reserve(size);
         for(uint32_t i = 0; i < size; i++)
         {
@@ -34,7 +36,5 @@ namespace JSWrapper
         }
         return vector;
     }
-
-    using Array = Value<std::vector<Generic>, v8::Array>;
 
 };  // namespace JSWrapper

@@ -9,7 +9,9 @@
 
 namespace JSWrapper
 {
-    v8::Local<v8::Set> Value<std::set<Generic>, v8::Set>::ToJSValue()
+    using Set = Value<std::set<Generic>, v8::Set>;
+
+    v8::Local<Set::JSValueType> Set::ToJSValue()
     {
         v8::Local<v8::Context> ctx = isolate->GetEnteredOrMicrotaskContext();
         v8::Local<v8::Set> set = v8::Set::New(isolate);
@@ -19,20 +21,18 @@ namespace JSWrapper
         }
         return set;
     }
-    std::set<Generic> Value<std::set<Generic>, v8::Set>::ToCppValue(std::set<Generic>&& defaultVal)
+    Set::CppValueType Set::ToCppValue(Set::CppValueType&& defaultVal)
     {
         if(!GetHandle()->IsSet()) return defaultVal;
 
         v8::Local<v8::Context> ctx = isolate->GetEnteredOrMicrotaskContext();
         std::vector<Generic> keys = Array{ GetHandle().As<v8::Set>()->AsArray() }.CppValue();
-        std::set<Generic> set;
+        Set::CppValueType set;
         for(auto& key : keys)
         {
             set.insert(key);
         }
         return set;
     }
-
-    using Set = Value<std::set<Generic>, v8::Set>;
 
 };  // namespace JSWrapper

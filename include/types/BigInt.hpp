@@ -6,11 +6,14 @@
 
 namespace JSWrapper
 {
-    v8::Local<v8::BigInt> Value<int64_t, v8::BigInt>::ToJSValue()
+    using BigInt = Value<int64_t, v8::BigInt>;
+    using UnsignedBigInt = Value<uint64_t, v8::BigInt>;
+
+    v8::Local<BigInt::JSValueType> BigInt::ToJSValue()
     {
         return v8::BigInt::New(isolate, cppValue);
     }
-    int64_t Value<int64_t, v8::BigInt>::ToCppValue(int64_t&& defaultVal)
+    BigInt::CppValueType BigInt::ToCppValue(BigInt::CppValueType&& defaultVal)
     {
         v8::MaybeLocal<v8::BigInt> maybeVal = GetHandle()->ToBigInt(isolate->GetEnteredOrMicrotaskContext());
         v8::Local<v8::BigInt> val;
@@ -18,19 +21,16 @@ namespace JSWrapper
         return val->Int64Value();
     }
 
-    v8::Local<v8::BigInt> Value<uint64_t, v8::BigInt>::ToJSValue()
+    v8::Local<UnsignedBigInt::JSValueType> UnsignedBigInt::ToJSValue()
     {
         return v8::BigInt::NewFromUnsigned(isolate, cppValue);
     }
-    uint64_t Value<uint64_t, v8::BigInt>::ToCppValue(uint64_t&& defaultVal)
+    UnsignedBigInt::CppValueType UnsignedBigInt::ToCppValue(UnsignedBigInt::CppValueType&& defaultVal)
     {
         v8::MaybeLocal<v8::BigInt> maybeVal = GetHandle()->ToBigInt(isolate->GetEnteredOrMicrotaskContext());
         v8::Local<v8::BigInt> val;
         if(!maybeVal.ToLocal(&val)) return defaultVal;
         return val->Uint64Value();
     }
-
-    using BigInt = Value<int64_t, v8::BigInt>;
-    using UnsignedBigInt = Value<uint64_t, v8::BigInt>;
 
 };  // namespace JSWrapper

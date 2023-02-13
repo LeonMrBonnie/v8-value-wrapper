@@ -10,7 +10,9 @@
 
 namespace JSWrapper
 {
-    v8::Local<v8::Map> Value<std::map<Generic, Generic>, v8::Map>::ToJSValue()
+    using Map = Value<std::map<Generic, Generic>, v8::Map>;
+
+    v8::Local<Map::JSValueType> Map::ToJSValue()
     {
         v8::Local<v8::Context> ctx = isolate->GetEnteredOrMicrotaskContext();
         v8::Local<v8::Map> obj = v8::Map::New(isolate);
@@ -20,13 +22,13 @@ namespace JSWrapper
         }
         return obj;
     }
-    std::map<Generic, Generic> Value<std::map<Generic, Generic>, v8::Map>::ToCppValue(std::map<Generic, Generic>&& defaultVal)
+    Map::CppValueType Map::ToCppValue(Map::CppValueType&& defaultVal)
     {
         if(!GetHandle()->IsMap()) return defaultVal;
 
         v8::Local<v8::Context> ctx = isolate->GetEnteredOrMicrotaskContext();
         std::vector<Generic> keys = Array{ GetHandle().As<v8::Map>()->AsArray() }.CppValue();
-        std::map<Generic, Generic> map;
+        Map::CppValueType map;
         uint32_t size = keys.size();
         for(uint32_t i = 0; i < size; i += 2)
         {
@@ -37,7 +39,5 @@ namespace JSWrapper
         }
         return map;
     }
-
-    using Map = Value<std::map<Generic, Generic>, v8::Map>;
 
 };  // namespace JSWrapper

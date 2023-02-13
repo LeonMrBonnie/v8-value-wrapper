@@ -10,7 +10,9 @@
 
 namespace JSWrapper
 {
-    v8::Local<v8::Object> Value<std::unordered_map<std::string, Generic>, v8::Object>::ToJSValue()
+    using Object = Value<std::unordered_map<std::string, Generic>, v8::Object>;
+
+    v8::Local<Object::JSValueType> Object::ToJSValue()
     {
         v8::Local<v8::Context> ctx = isolate->GetEnteredOrMicrotaskContext();
         v8::Local<v8::Object> obj = v8::Object::New(isolate);
@@ -20,13 +22,13 @@ namespace JSWrapper
         }
         return obj;
     }
-    std::unordered_map<std::string, Generic> Value<std::unordered_map<std::string, Generic>, v8::Object>::ToCppValue(std::unordered_map<std::string, Generic>&& defaultVal)
+    Object::CppValueType Object::ToCppValue(Object::CppValueType&& defaultVal)
     {
         if(!GetHandle()->IsObject()) return defaultVal;
 
         v8::Local<v8::Context> ctx = isolate->GetEnteredOrMicrotaskContext();
         std::vector<Generic> keys = Array{ GetHandle().As<v8::Object>()->GetOwnPropertyNames(ctx) }.CppValue();
-        std::unordered_map<std::string, Generic> map;
+        Object::CppValueType map;
         for(auto& key : keys)
         {
             v8::MaybeLocal<v8::Value> maybeVal = GetHandle().As<v8::Object>()->Get(ctx, key.GetValue());
@@ -36,7 +38,5 @@ namespace JSWrapper
         }
         return map;
     }
-
-    using Object = Value<std::unordered_map<std::string, Generic>, v8::Object>;
 
 };  // namespace JSWrapper

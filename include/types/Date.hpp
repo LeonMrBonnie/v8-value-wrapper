@@ -7,7 +7,9 @@
 
 namespace JSWrapper
 {
-    v8::Local<v8::Date> Value<std::chrono::system_clock::time_point, v8::Date>::ToJSValue()
+    using Date = Value<std::chrono::system_clock::time_point, v8::Date>;
+
+    v8::Local<Date::JSValueType> Date::ToJSValue()
     {
         v8::MaybeLocal<v8::Value> maybeVal =
           v8::Date::New(isolate->GetEnteredOrMicrotaskContext(), std::chrono::duration_cast<std::chrono::milliseconds>(cppValue.time_since_epoch()).count());
@@ -15,12 +17,10 @@ namespace JSWrapper
         if(!maybeVal.ToLocal(&val)) return v8::Local<v8::Date>();
         return val;
     }
-    std::chrono::system_clock::time_point Value<std::chrono::system_clock::time_point, v8::Date>::ToCppValue(std::chrono::system_clock::time_point&& defaultVal)
+    Date::CppValueType Date::ToCppValue(Date::CppValueType&& defaultVal)
     {
         if(!jsValue->IsDate()) return std::chrono::system_clock::time_point{};
         return std::chrono::system_clock::time_point{} + std::chrono::milliseconds((int64_t)jsValue.As<v8::Date>()->ValueOf());
     }
-
-    using Date = Value<std::chrono::system_clock::time_point, v8::Date>;
 
 };  // namespace JSWrapper

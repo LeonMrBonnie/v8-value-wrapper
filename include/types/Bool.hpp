@@ -6,15 +6,15 @@
 
 namespace JSWrapper
 {
-    v8::Local<v8::Boolean> Value<bool, v8::Boolean>::ToJSValue()
+    using Bool = Value<bool, v8::Boolean>;
+
+    v8::Local<Bool::JSValueType> Bool::ToJSValue()
     {
         return v8::Boolean::New(isolate, cppValue);
     }
-    bool Value<bool, v8::Boolean>::ToCppValue(bool&& defaultVal)
+    Bool::CppValueType Bool::ToCppValue(Bool::CppValueType&& defaultVal)
     {
         return GetHandle()->ToBoolean(isolate)->Value();
     }
-
-    using Bool = Value<bool, v8::Boolean>;
 
 };  // namespace JSWrapper

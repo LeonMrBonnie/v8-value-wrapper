@@ -6,16 +6,16 @@
 
 namespace JSWrapper
 {
-    v8::Local<v8::External> Value<void*, v8::External>::ToJSValue()
+    using External = Value<void*, v8::External>;
+
+    v8::Local<External::JSValueType> External::ToJSValue()
     {
         return v8::External::New(isolate, cppValue);
     }
-    void* Value<void*, v8::External>::ToCppValue(void*&& defaultVal)
+    External::CppValueType External::ToCppValue(External::CppValueType&& defaultVal)
     {
         if(!GetHandle()->IsExternal()) return defaultVal;
         return GetHandle().As<v8::External>()->Value();
     }
-
-    using External = Value<void*, v8::External>;
 
 };  // namespace JSWrapper
