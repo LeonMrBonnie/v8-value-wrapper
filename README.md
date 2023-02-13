@@ -30,5 +30,5 @@ see [Value.hpp#L8-L14](include/Value.hpp#L8-L14).
     - [ ] ArrayBuffer, SharedArrayBuffer, DataView
     - [ ] TypedArrays
     - [X] Symbol
-    - [ ] Date
+    - [X] Date
     - [ ] Function (? This one might be too much work and out of scope for this library)
