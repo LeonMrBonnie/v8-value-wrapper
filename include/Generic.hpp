@@ -17,7 +17,9 @@ namespace JSWrapper
         SET,
         EXTERNAL,
         SYMBOL,
-        DATE
+        DATE,
+        ARRAY_BUFFER,
+        SHARED_ARRAY_BUFFER
     };
 
     class Generic
@@ -50,6 +52,8 @@ namespace JSWrapper
             if(value->IsExternal()) return GenericType::EXTERNAL;
             if(value->IsSymbol()) return GenericType::SYMBOL;
             if(value->IsDate()) return GenericType::DATE;
+            if(value->IsArrayBuffer()) return GenericType::ARRAY_BUFFER;
+            if(value->IsSharedArrayBuffer()) return GenericType::SHARED_ARRAY_BUFFER;
             if(value->IsObject()) return GenericType::OBJECT;
             return GenericType::INVALID;
         }

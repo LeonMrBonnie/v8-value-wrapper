@@ -11,3 +11,4 @@
 #include "types/External.hpp"
 #include "types/Symbol.hpp"
 #include "types/Date.hpp"
+#include "types/ArrayBuffer.hpp"
