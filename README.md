@@ -32,3 +32,4 @@ see [Value.hpp#L8-L14](include/Value.hpp#L8-L14).
     - [X] Symbol
     - [X] Date
     - [ ] Function (? This one might be too much work and out of scope for this library)
+    - [ ] Promises
