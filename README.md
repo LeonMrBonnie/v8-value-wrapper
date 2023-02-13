@@ -28,7 +28,7 @@ see [Value.hpp#L8-L14](include/Value.hpp#L8-L14).
 - [X] ~~Implement STL-like methods for Array and Object to allow range-based for loops~~ (Abandoned, convert to C++ value directly instead)
 - Implement support for missing types:
     - [X] ArrayBuffer, SharedArrayBuffer, DataView
-    - [ ] TypedArrays
+    - [X] ~~TypedArrays~~
     - [X] Symbol
     - [X] Date
     - [ ] Function (? This one might be too much work and out of scope for this library)
